@@ -1,0 +1,12 @@
+
+plugins {
+    id("java-common-conventions")
+}
+
+
+dependencies {
+    implementation project(':core')
+    implementation("org.mongodb:mongodb-driver-sync:5.6.3")
+
+    testImplementation project(':generators')
+}

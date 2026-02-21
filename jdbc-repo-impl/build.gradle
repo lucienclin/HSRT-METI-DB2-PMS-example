@@ -1,0 +1,13 @@
+
+plugins {
+    id("java-common-conventions")
+}
+
+
+dependencies {
+    implementation project(':core')
+
+    testImplementation project(':generators')
+
+    testRuntimeOnly('org.postgresql:postgresql:42.7.10')
+}

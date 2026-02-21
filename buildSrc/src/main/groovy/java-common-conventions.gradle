@@ -1,0 +1,35 @@
+plugins {
+    id 'java-library'
+}
+
+/*
+group = 'de.hsrt.meti.db2'
+description = 'Example PMS'
+version = '1.0-SNAPSHOT'
+*/
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.21.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.21.0")
+    implementation("com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.21.0")
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.11.3'
+
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.11.3'
+    testRuntimeOnly 'org.junit.vintage:junit-vintage-engine:5.11.3'
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}

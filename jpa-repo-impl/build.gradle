@@ -1,0 +1,17 @@
+
+plugins {
+    id("java-common-conventions")
+}
+
+
+dependencies {
+    implementation project(':core')
+    implementation("org.hibernate.orm:hibernate-core:7.2.4.Final")
+
+    compileOnly("org.projectlombok:lombok:1.18.42")
+    annotationProcessor("org.projectlombok:lombok:1.18.42")
+
+    testImplementation project(':generators')
+
+    testRuntimeOnly('org.postgresql:postgresql:42.7.10')
+}

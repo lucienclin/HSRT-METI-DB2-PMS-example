@@ -1,0 +1,11 @@
+
+plugins {
+    id("java-common-conventions")
+}
+
+
+dependencies {
+    implementation project(':core')
+
+    testImplementation project(':generators')
+}
