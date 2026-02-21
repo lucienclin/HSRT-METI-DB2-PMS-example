@@ -8,7 +8,7 @@ This serves to illustrate the following principles:
 - Domain Modelling
 - Use of domain object generators
 - Differences between "classical" imperative and declarative data processing using Streams API
-- Dependency Inversion Principle for clean separation of high-level domain logic ("core") from "low-level" infrastruture details, here for database access via a `Repository` abstraction
+- Dependency Inversion Principle for clean separation of high-level domain logic ("core") from low-level infrastructure details, here for database access via a `Repository` abstraction
 - Possibility to provide arbitrary implementations of `Repository`:
   - For RDBMS using JDBC
   - For RDBMS using object/relational mapping with JPA
