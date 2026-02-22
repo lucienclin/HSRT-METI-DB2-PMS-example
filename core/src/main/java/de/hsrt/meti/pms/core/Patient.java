@@ -64,6 +64,7 @@ public record Patient
   implements Command {} 
 
 
+  // Partial Update, i.e. only properties to be updated/changed need be defined (see. below)
   public static record Update
   (
     Id<Patient> id,
@@ -108,7 +109,7 @@ public record Patient
 
     Optional<Patient> getPatient(Id<Patient> id);
     
-    List<Patient> getPatients(Filter filter);
+    List<Patient> findPatients(Filter filter);
   }
 
 
@@ -118,16 +119,18 @@ public record Patient
   }
 
 
-  public Patient apply(Update up){
+  // Apply the (partial) Update to this Patient, i.e. create a copy of the Patient object
+  // with each property modified according to the Update
+  public Patient apply(Update update){
     return new Patient(
       this.id,
-      up.gender().orElse(this.gender),
-      up.givenName().orElse(this.givenName),
-      up.familyName().orElse(this.familyName),
+      update.gender().orElse(this.gender),
+      update.givenName().orElse(this.givenName),
+      update.familyName().orElse(this.familyName),
       this.birthDate,
-      up.dateOfDeath().or(() -> this.dateOfDeath),
-      up.healthInsurance().orElse(this.healthInsurance),
-      up.address().orElse(this.address),
+      update.dateOfDeath().or(() -> this.dateOfDeath),
+      update.healthInsurance().orElse(this.healthInsurance),
+      update.address().orElse(this.address),
       Instant.now()
     );
   }

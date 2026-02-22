@@ -7,6 +7,11 @@ import java.util.Set;
 import java.util.ServiceLoader;
 
 
+/*
+  Dependency Inversion Principle: Define an abstraction over required persistence operations.
+  This allows for any implementation to be plugged in depending on context,
+   e.g. a fake (in-memory) implementation in tests, but a real implementation backed by a DB for production
+*/
 
 public interface Repository
 {

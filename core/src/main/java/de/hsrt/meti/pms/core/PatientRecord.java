@@ -42,7 +42,7 @@ public record PatientRecord
   )
   implements Command {}
 
-  public static record UpdatePatientData
+  public static record UpdatePatient
   (
     Id<Patient> id,
     Optional<Gender> gender,

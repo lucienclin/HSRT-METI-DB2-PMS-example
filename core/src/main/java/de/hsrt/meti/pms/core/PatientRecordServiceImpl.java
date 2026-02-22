@@ -112,7 +112,7 @@ public class PatientRecordServiceImpl implements PatientRecordService
 
 
   @Override
-  public List<Patient> getPatients(Patient.Filter filter){
+  public List<Patient> findPatients(Patient.Filter filter){
 
     // Logging...
 
