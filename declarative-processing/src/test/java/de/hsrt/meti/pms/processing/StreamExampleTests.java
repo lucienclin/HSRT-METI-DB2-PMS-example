@@ -24,9 +24,7 @@ public final class StreamExampleTests implements ProcessingExampleOps
     var count =
       PATIENTS
         .stream()
-        .filter(
-          patient -> patient.address().city().equals(city)
-	)
+        .filter(patient -> patient.address().city().equals(city))
         .count();
 
     System.out.println("Patients in " + city + ": " + count);
