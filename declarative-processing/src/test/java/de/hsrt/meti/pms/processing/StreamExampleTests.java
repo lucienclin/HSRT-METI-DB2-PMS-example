@@ -47,9 +47,7 @@ public final class StreamExampleTests implements ProcessingExampleOps
       .flatMap(            
         diag ->
           PATIENTS.stream()  // Finde Patient, der von Diagnose referenziert wird
-            .filter(
-	      pat -> pat.id().equals(diag.patient())
-	    )
+            .filter(pat -> pat.id().equals(diag.patient()))
       );
 
   }

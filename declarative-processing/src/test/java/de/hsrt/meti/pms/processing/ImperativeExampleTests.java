@@ -46,11 +46,11 @@ public final class ImperativeExampleTests implements ProcessingExampleOps
 
       if (diagnosis.coding().code().equals("U07.1")){
 
-	for (Patient patient : PATIENTS){
+        for (Patient patient : PATIENTS){
           if (patient.id().equals(diagnosis.patient())){
-	    patientsWithCovid.add(patient);
-	  } 
-	}
+            patientsWithCovid.add(patient);
+          } 
+        }
 
       }
     }
