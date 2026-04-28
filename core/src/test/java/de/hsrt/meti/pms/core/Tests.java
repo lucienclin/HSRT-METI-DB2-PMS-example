@@ -39,22 +39,21 @@ public class Tests
 
     var retrievedPatient = service.getPatient(createdPatient.id());
 
+    // Check that the Patient can be retrieved by ID and the returned instance is identical to the created one
     assertTrue(retrievedPatient.isPresent());
     assertEquals(createdPatient,retrievedPatient.get());
 
-    // Filtering Patients must return exactly 1 entry, given that only one has been created
+    // Filtering Patients must return exactly 1 entry at this point, given that only one has been created
     assertEquals(service.findPatients(Patient.Filter.NONE).size(),1);
 
 
     var deletedPatient = assertDoesNotThrow(() -> service.process(new Patient.Delete(createdPatient.id())));
 
+    // Patient retrieval by ID or by filtering must return no results now, after the one Patient has been deleted
     assertTrue(service.getPatient(createdPatient.id()).isEmpty());
-
-    // Filtering Patients must return exactly 1 entry, given that only one has been created
     assertTrue(service.findPatients(Patient.Filter.NONE).isEmpty());
 
   }
-
 
   /*
     NOTE: On the complete PatientRecordService implementation, further tests could be:
