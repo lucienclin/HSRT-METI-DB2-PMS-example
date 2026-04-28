@@ -47,7 +47,7 @@ public class Tests
     assertEquals(service.findPatients(Patient.Filter.NONE).size(),1);
 
 
-    var deletedPatient = assertDoesNotThrow(() -> service.process(new Patient.Delete(createdPatient.id())));
+    assertDoesNotThrow(() -> service.process(new Patient.Delete(createdPatient.id())));
 
     // Patient retrieval by ID or by filtering must return no results now, after the one Patient has been deleted
     assertTrue(service.getPatient(createdPatient.id()).isEmpty());
