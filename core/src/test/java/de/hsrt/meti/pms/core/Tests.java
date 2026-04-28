@@ -1,16 +1,68 @@
 package de.hsrt.meti.pms.core;
 
 
+import java.time.LocalDate;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 public class Tests
 {
 
-  @Test
-  public void TODO(){ 
+  private static PatientRecordService service = null; 
 
-     //TODO
+
+  @BeforeAll
+  public static void init(){ 
+    service = new PatientRecordServiceImpl(new InMemRepository());
   } 
 
+
+  @Test
+  public void testPatientLifecycle(){
+ 
+    var createPatient =
+      new Patient.Create(
+        Gender.UNKNOWN,
+        "Max",
+        "Mustermensch",
+        LocalDate.now().minusYears(42),
+        "AOK",
+        new Address("Musterstr.","42","98765","Musterhausen")
+      );
+
+    var createdPatient = assertDoesNotThrow(() -> service.process(createPatient));
+
+    var retrievedPatient = service.getPatient(createdPatient.id());
+
+    assertTrue(retrievedPatient.isPresent());
+    assertEquals(createdPatient,retrievedPatient.get());
+
+    // Filtering Patients must return exactly 1 entry, given that only one has been created
+    assertEquals(service.findPatients(Patient.Filter.NONE).size(),1);
+
+
+    var deletedPatient = assertDoesNotThrow(() -> service.process(new Patient.Delete(createdPatient.id())));
+
+    assertTrue(service.getPatient(createdPatient.id()).isEmpty());
+
+    // Filtering Patients must return exactly 1 entry, given that only one has been created
+    assertTrue(service.findPatients(Patient.Filter.NONE).isEmpty());
+
+  }
+
+
+  /*
+    NOTE: On the complete PatientRecordService implementation, further tests could be:
+
+    - Check that invalid data (e.g. a Patient with birthdate in the future or outside a meaningful age range,
+      e.g. over 150 years old) lead to an error) instead of Patient creation
+
+    - Check that upon patient deletion, all associated diagnoses/prescription have also been deleted
+  */
+  
 }
