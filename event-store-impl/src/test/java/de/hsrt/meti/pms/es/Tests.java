@@ -124,9 +124,7 @@ public final class Tests
 /*
       eventStore.process(new Patient.Delete(patient.id()));
 
-      assertTrue(
-        eventStore.findPatient(patient.id()).isEmpty()
-      );
+      assertTrue(eventStore.findPatient(patient.id()).isEmpty());
 */
     } catch (Exception e){
       e.printStackTrace();
@@ -149,7 +147,7 @@ public final class Tests
       )
     );
 
-    assertFalse(patients.isEmpty());
+    assertTrue(!patients.isEmpty());
 
     assertTrue(
       patients.stream()
@@ -158,5 +156,4 @@ public final class Tests
 
   }
 */
-
 }
