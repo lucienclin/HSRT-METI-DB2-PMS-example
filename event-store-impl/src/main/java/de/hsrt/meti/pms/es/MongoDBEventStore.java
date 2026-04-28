@@ -256,8 +256,14 @@ final class MongoDBEventStore implements EventStore
   @Override
   public Optional<Patient> findPatient(Id<Patient> id){
 
-    // Implemented terms of stateOfPatientAt(...) at time now
-    return stateOfPatientAt(id,Instant.now());
+    // Implemented using the query collection
+    return stream(patients.find(withId(id)).spliterator(),false)
+      .findFirst()
+      .map(MongoPatient::revert);
+
+    // Could also be implemented in terms of stateOfPatientAt(...) at time now
+    //return stateOfPatientAt(id,Instant.now());
+
   }
 
 
