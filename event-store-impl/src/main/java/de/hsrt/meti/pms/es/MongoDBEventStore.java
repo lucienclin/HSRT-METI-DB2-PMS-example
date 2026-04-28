@@ -147,8 +147,7 @@ final class MongoDBEventStore implements EventStore
           )
         );
 
-        var patient =
-          this.findPatient(id).orElseThrow();              
+        var patient = this.findPatient(id).orElseThrow();              
 
         // Add the Patient's snapshot to the query collection
         patients.insertOne(MongoPatient.from(patient));
@@ -173,8 +172,7 @@ final class MongoDBEventStore implements EventStore
           )
         );
 
-        var patient =
-          this.findPatient(up.id()).orElseThrow();              
+        var patient = this.findPatient(up.id()).orElseThrow();              
 
         // Update the Patient's snapshot in the query collection
         patients.findOneAndReplace(withId(patient.id()),MongoPatient.from(patient));
@@ -256,13 +254,15 @@ final class MongoDBEventStore implements EventStore
   @Override
   public Optional<Patient> findPatient(Id<Patient> id){
 
-    // Implemented using the query collection
-    return stream(patients.find(withId(id)).spliterator(),false)
-      .findFirst()
-      .map(MongoPatient::revert);
+    // Implemented in terms of stateOfPatientAt(...) at time now
+    return stateOfPatientAt(id,Instant.now());
 
-    // Could also be implemented in terms of stateOfPatientAt(...) at time now
-    //return stateOfPatientAt(id,Instant.now());
+    // Could also be implemented using the query collection, but then
+    // the above logic to initialize the Patient in the query collection 
+    // on Patient.Create would have to be adapted
+    //return stream(patients.find(withId(id)).spliterator(),false)
+    //  .findFirst()
+    //  .map(MongoPatient::revert);
 
   }
 
